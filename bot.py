@@ -37,7 +37,6 @@ REGISTRARS = {
     "alesyabragina": "Алеся",
     "raventa007": "Женя",
 }
-}
 DEFAULT_REGISTRAR = "Команда 3а3о"
 
 
