@@ -35,9 +35,8 @@ os.makedirs(DATA_DIR, exist_ok=True)
 # Telegram username → имя на билете
 REGISTRARS = {
     "alesyabragina": "Алеся",
-    # Добавь username Жени и Олеси:
-    # "raventa007": "Женя",
-    # "alesyabragina": "Алеся",
+    "raventa007": "Женя",
+}
 }
 DEFAULT_REGISTRAR = "Команда 3а3о"
 
