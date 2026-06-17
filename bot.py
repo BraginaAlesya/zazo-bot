@@ -1,7 +1,7 @@
 """
 3а3о · Бот для выдачи билетов
 Данные хранятся в /data/tickets.json (Railway Volume)
-Команды: /билет  /список  /отмена
+Команды: /ticket  /list  /cancel
 """
 
 import os
@@ -35,7 +35,9 @@ os.makedirs(DATA_DIR, exist_ok=True)
 # Telegram username → имя на билете
 REGISTRARS = {
     "alesyabragina": "Алеся",
-    "raventa007": "Женя",
+    # Добавь username Жени и Олеси:
+    # "username_zheni": "Женя",
+    # "username_olesi": "Олеся",
 }
 DEFAULT_REGISTRAR = "Команда 3а3о"
 
@@ -68,14 +70,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🎟 *Бот выдачи билетов 3а3о*\n\n"
         "Команды:\n"
-        "• /билет — выдать новый билет\n"
-        "• /список — все выданные билеты\n"
-        "• /отмена — отменить текущий диалог",
+        "• /ticket — выдать новый билет\n"
+        "• /list — все выданные билеты\n"
+        "• /cancel — отменить текущий диалог",
         parse_mode="Markdown"
     )
 
 
-async def cmd_билет(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def cmd_ticket(update: Update, context: ContextTypes.DEFAULT_TYPE):
     registrar = get_registrar_name(update.effective_user)
     context.user_data["registrar"] = registrar
     context.user_data["ticket_number"] = next_ticket_number()
@@ -166,7 +168,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return ConversationHandler.END
 
 
-async def cmd_список(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def cmd_list(update: Update, context: ContextTypes.DEFAULT_TYPE):
     tickets = load_tickets()
     if not tickets:
         await update.message.reply_text("📋 Билеты ещё не выдавались.")
@@ -198,18 +200,18 @@ def main():
     app = Application.builder().token(BOT_TOKEN).build()
 
     conv = ConversationHandler(
-        entry_points=[CommandHandler("билет", cmd_билет)],
+        entry_points=[CommandHandler("ticket", cmd_ticket)],
         states={
             ФИО:     [MessageHandler(filters.TEXT & ~filters.COMMAND, get_фио)],
             МЕСТА:   [MessageHandler(filters.TEXT & ~filters.COMMAND, get_места)],
             СУММА:   [MessageHandler(filters.TEXT & ~filters.COMMAND, get_сумма)],
             КОНТАКТ: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_контакт)],
         },
-        fallbacks=[CommandHandler("отмена", cancel)],
+        fallbacks=[CommandHandler("cancel", cancel)],
     )
 
     app.add_handler(CommandHandler("start",  start))
-    app.add_handler(CommandHandler("список", cmd_список))
+    app.add_handler(CommandHandler("list", cmd_list))
     app.add_handler(conv)
 
     logger.info("Бот 3а3о запущен...")
