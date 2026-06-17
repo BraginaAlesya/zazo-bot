@@ -36,8 +36,8 @@ os.makedirs(DATA_DIR, exist_ok=True)
 REGISTRARS = {
     "alesyabragina": "Алеся",
     # Добавь username Жени и Олеси:
-    # "username_zheni": "Женя",
-    # "username_olesi": "Олеся",
+    # "raventa007": "Женя",
+    # "alesyabragina": "Алеся",
 }
 DEFAULT_REGISTRAR = "Команда 3а3о"
 
