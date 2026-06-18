@@ -93,7 +93,7 @@ def generate_ticket(data: dict) -> str:
     fields = [
         ("ГОСТЬ",    data["фио"]),
         ("МЕСТ",     str(data["места"])),
-        ("ОПЛАЧЕНО", f"{data['сумма']:,} ₽".replace(",", " ")),
+("К ОПЛАТЕ НА МЕСТЕ", f"{data['сумма']:,} ₽".replace(",", " ")),
         ("КОНТАКТ",  data["контакт"]),
     ]
     for i, (label, value) in enumerate(fields):
