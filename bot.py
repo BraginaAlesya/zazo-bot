@@ -56,9 +56,12 @@ def save_tickets(tickets):
 
 def next_ticket_number():
     tickets = load_tickets()
-    if not tickets:
-        return 1
-    return max(t["number"] for t in tickets) + 1
+    used = {t["number"] for t in tickets}
+    import random
+    available = [n for n in range(1, 1000) if n not in used]
+    if not available:
+        return random.randint(1000, 9999)
+    return random.choice(available)
 
 
 def get_registrar_name(user) -> str:
